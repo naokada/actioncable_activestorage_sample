@@ -2,25 +2,38 @@
 
 <h1>Posts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="contents">
+  <div class="main-content">
+    <div class="posts flex">
+      <% @posts.each do |post| %>
+        <% if post.image.attached?%>
+          <div class="post">
+            <%= image_tag post.image, class:"post__image"%>
+            <ul class="post__link-list">
+              <li><%= link_to 'Show', post %></li>
+              <li><%= link_to 'Edit', edit_post_path(post) %></li>
+              <li><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            </ul>
+          </div>
+        <% end%>
+      <% end %>
+    </div>
+    <br>
+    <%= link_to 'New Post', new_post_path %>
+  </div>
+  <div class="right-content">
+    <ul class="notify-list">
+      <li class="notify-list__item">
+        <%= image_tag @posts.last.image, class:"thumb"%>
+        <p>clicked</p>
+      </li>
+      <li class="notify-list__item">
+        <%= image_tag @posts.last.image, class:"thumb"%>
+        <p>clicked</p>
+      </li>
+    </ul>
+  </div>
+</div>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <%= image_tag post.image, class:"post_image"%>
-      <tr>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Post', new_post_path %>
